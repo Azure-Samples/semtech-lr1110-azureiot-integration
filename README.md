@@ -5,13 +5,18 @@ The payload coming from the tracker needs to be decoded, which you can do by lev
 
 This project takes Semtech's decoder to the next level by integrating it with Azure IoT Hub and making it easy to deploy to your Azure subscription via an Azure Resource Manager (ARM) template and leverage Azure services to implement your business applications. Because there is code that is depedent on the LoRaWAN Network Server (LNS) implementation being used, we provide support for 3 popular LNS providers as an example: Actility, Helium, and The Things Industries. Users of this code are welcome to extend it to support additional LNS providers.
 
-## Features
+## Architecture and General Design
 
-This project framework provides the following features:
+Here is the general architecture for this solution:
+![](images/LoRaEdgeTracker_AzureIoTIntegration_Architecture.jpg)
 
-* Feature 1
-* Feature 2
-* ...
+Main components:
+
+* LNS to Azure IoT Hub integration
+* Router Azure Function
+* LNS specific Azure Function
+* Event Hub + Azure Stream Analytics
+* Power BI dashboard using Azure Maps
 
 ## Getting Started
 
