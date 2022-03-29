@@ -34,13 +34,25 @@ Here is what you need to do if you would like to take advantage of this project 
 - LR1110 tracker.
 - Azure subscription.
 
-### Installation
+### Quickstart
+The following button deploy the shown infrastructure into your chosen subscription
 
-- INSTRUCTIONS TO DEPLOY ARM TEMPLATE ==> Yannik to add
+<a href="tbd" target="_blank">
+    <img src="https://aka.ms/deploytoazurebutton"/>
+</a>
+
+The template includes the following components
+- IoT Hub
+- Azure Function
+- SQL DB
+- EventHub
+- StreamAnalytics
+ 
+### Installation Guide
 
 ### Quickstart
 
-==> Yannik to add
+To start developing your solution locally follow these steps to build the code.
 
 1. git clone [repository clone url]
 2. cd [respository name]
