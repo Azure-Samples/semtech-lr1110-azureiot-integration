@@ -11,4 +11,6 @@ pool:
 
 steps:
 - task: ComponentGovernanceComponentDetection@0
+  inputs:
+    sourceScanPath: 'src'
   displayName: 'Run Component Governance Component Detection'
