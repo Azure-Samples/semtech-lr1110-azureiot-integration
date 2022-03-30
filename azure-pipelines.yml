@@ -12,5 +12,5 @@ pool:
 steps:
 - task: ComponentGovernanceComponentDetection@0
   inputs:
-    sourceScanPath: 'src\Router/RouterFunction.cs,src\ActilityLoRaEdgeDecoder\LoRaEdgeDecoderActility\__init__.py,src\HeliumLoRaEdgeDecoder\LoRaEdgeDecoderHelium\__init__.py,src\TTNLoRaEdgeDecoder\LoReEdgeDecoderTTN\__init__.py'
+    sourceScanPath: 'src/Router/RouterFunction.cs,src/ActilityLoRaEdgeDecoder/LoRaEdgeDecoderActility/__init__.py,src/HeliumLoRaEdgeDecoder/LoRaEdgeDecoderHelium/__init__.py,src/TTNLoRaEdgeDecoder/LoReEdgeDecoderTTN/__init__.py'
   displayName: 'Run Component Governance Component Detection'
