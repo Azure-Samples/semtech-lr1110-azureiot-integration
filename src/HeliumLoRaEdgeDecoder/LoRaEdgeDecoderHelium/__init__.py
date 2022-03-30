@@ -135,9 +135,8 @@ async def main(req : func.HttpRequest)-> func.HttpResponse:
     try:
         req_body = req.get_json()
     except Exception as ex:
-        logging.error("no json body found")
-        #return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(ex),'msgType':'log'}
-        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(200),'msgType':'log'}
+        logging.info( "request body error: {0}" % ex )
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(ex),'msgType':'log'}
         return func.HttpResponse(json.dumps(return_json),status_code=400,mimetype="application/json")
 
     msg_payload = json.dumps(req_body)
@@ -370,6 +369,7 @@ def proc_dnlink(deveui, port, payload):
 # Send downlink to LNS.
 # This is the Chirpstack version of the function.
 def lns_downlink(deveui, port, payload):
+    global return_json
     # Build downlink
     dnlink_dict = {
         "downlinks":[{

@@ -131,9 +131,9 @@ async def main(req : func.HttpRequest)-> func.HttpResponse:
     global return_json
     try:
         req_body = req.get_json()
-    except ValueError:
+    except Exception as ex:
         logging.error("no json body found")
-        return_json={"error":"no json body found"}
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(ex),'msgType':'log'}
         return func.HttpResponse(json.dumps(return_json),status_code=400,mimetype="application/json")
 
     msg_payload = json.dumps(req_body)
@@ -143,8 +143,7 @@ async def main(req : func.HttpRequest)-> func.HttpResponse:
 
     if proc_lns_event(msg_payload) == False:
         logging.info("Error processing LNS event")
-        return_json={"error":"Error processing LNS event"}
-        return func.HttpResponse(json.dumps(return_json),status_code=400,mimetype="application/json")
+        return func.HttpResponse(json.dumps(return_json),status_code=500,mimetype="application/json")
     
     return func.HttpResponse(json.dumps(return_json),status_code=200,mimetype="application/json")
 # Main end
@@ -207,6 +206,7 @@ def das_request(das_deveui, das_payload):
     r = requests.post(DASURI, headers = DAS_TOKEN_HEADER, json = das_request)
     if r.status_code != 200:
         logging.info(f"DAS request failed with status code {r.status_code}")
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(r.status_code),'msgType':'log'}
         return False
     
     # Check for DAS errors
@@ -217,16 +217,17 @@ def das_request(das_deveui, das_payload):
     # Check for DAS errors.
     if has_das_errors(das_resp):
         logging.info(f"DAS returned errors: {get_das_errors(das_resp)}")
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(get_das_errors(das_resp)),'msgType':'log'}
         return False
 
     # Get DAS result
     das_result = get_das_result(das_resp)
     
-
     # If response has downlink then process downlink
     if has_das_dnlink(das_result):
         if not proc_dnlink(das_deveui, get_das_dnlink_port(das_result), get_das_dnlink_payload(das_result)):
             logging.info("Downlink processing error")
+            return_json = {'epochTime':time.time(),'level':"error",'logMessage':str("Downlink processing error"),'msgType':'log'}
             das_success = False
 
     # If response has stream records process stream records
@@ -261,8 +262,6 @@ def proc_log_mes(level, timestamp, log_message):
     logging.info(f"Timestamp: {timestamp}")
     logging.info(f"Message: {log_message}")
 
-    global return_json
-    return_json ={'Level':level,'Timestamp':timestamp,'Message':log_message}
 # proc_log_mes end
 
 # Process position solution
@@ -278,7 +277,7 @@ def proc_pos_sol(position_solution):
     logging.info(f"Latitude: {latitude}")
     logging.info(f"Longitude: {longitude}")
     logging.info(f"Altitude: {get_das_pos_sol_alt(position_solution)}")
-    
+
     global return_json
     return_json = {'algorithm':algorithm,'latitude':latitude,'longitude':longitude,'altitude':altitude,'msgType':'pos','epochTime':uplinkTime}
 
@@ -371,6 +370,8 @@ def proc_dnlink(deveui, port, payload):
 # Send downlink to LNS.
 # This is the Chirpstack version of the function.
 def lns_downlink(deveui, port, payload):
+    global return_json
+
     # Build downlink
     dnlink_dict = {
         "downlinks":[{
@@ -389,6 +390,7 @@ def lns_downlink(deveui, port, payload):
 
     except Exception as ex:
         logging.info( "Unexpected error {0}" % ex )
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':ex,'msgType':'log'}
         return False
 
     # Success
