@@ -1,0 +1,14 @@
+{
+    "Registrations":[
+        {
+            "Component": {
+                "Type": "other",
+                "Other": {
+                    "Name": "Lora-net / SWNW003 Azure AS Example",
+                    "Version": "1.0.1",
+                    "DownloadUrl": "https://github.com/Lora-net/SWNW003"
+                }
+            }
+        }
+    ]
+}
