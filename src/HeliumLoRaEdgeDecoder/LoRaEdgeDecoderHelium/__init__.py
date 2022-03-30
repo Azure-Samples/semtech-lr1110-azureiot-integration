@@ -134,9 +134,10 @@ async def main(req : func.HttpRequest)-> func.HttpResponse:
 
     try:
         req_body = req.get_json()
-    except ValueError:
+    except Exception as ex:
         logging.error("no json body found")
-        return_json={"error":"no json body found"}
+        #return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(ex),'msgType':'log'}
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(200),'msgType':'log'}
         return func.HttpResponse(json.dumps(return_json),status_code=400,mimetype="application/json")
 
     msg_payload = json.dumps(req_body)
@@ -146,8 +147,7 @@ async def main(req : func.HttpRequest)-> func.HttpResponse:
 
     if proc_lns_event(msg_payload) == False:
         logging.info("Error processing LNS event")
-        return_json={"error":"Error processing LNS event"}
-        return func.HttpResponse(json.dumps(return_json),status_code=400,mimetype="application/json")
+        return func.HttpResponse(json.dumps(return_json),status_code=500,mimetype="application/json")
     
     return func.HttpResponse(json.dumps(return_json),status_code=200,mimetype="application/json")
 # Main end
@@ -195,7 +195,7 @@ def proc_lns_event(msg_payload):
 def das_request(das_deveui, das_payload):
     # Initialize success flag
     das_success = True
-    json_returnMessage = ''
+    global return_json
 
     # Build DAS request
     das_request = {
@@ -208,6 +208,7 @@ def das_request(das_deveui, das_payload):
     r = requests.post(DASURI, headers = DAS_TOKEN_HEADER, json = das_request)
     if r.status_code != 200:
         logging.info(f"DAS request failed with status code {r.status_code}")
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(r.status_code),'msgType':'log'}
         return False
     
     # Check for DAS errors
@@ -217,6 +218,7 @@ def das_request(das_deveui, das_payload):
     # Check for DAS errors.
     if has_das_errors(das_resp):
         logging.info(f"DAS returned errors: {get_das_errors(das_resp)}")
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(get_das_errors(das_resp)),'msgType':'log'}
         return False
 
     # Get DAS result
@@ -226,6 +228,7 @@ def das_request(das_deveui, das_payload):
     if has_das_dnlink(das_result):
         if not proc_dnlink(das_deveui, get_das_dnlink_port(das_result), get_das_dnlink_payload(das_result)):
             logging.info("Downlink processing error")
+            return_json = {'epochTime':time.time(),'level':"error",'logMessage':str("Downlink processing error"),'msgType':'log'}
             das_success = False
 
     # If response has stream records process stream records
@@ -235,7 +238,7 @@ def das_request(das_deveui, das_payload):
     
     # If response has position solution process position solution
     if has_das_pos_sol(das_result):
-        json_returnMessage = proc_pos_sol(get_das_pos_sol(das_result))
+        proc_pos_sol(get_das_pos_sol(das_result))
 
     # If response has log messages process log messages
     if has_das_log_msgs(das_result):
@@ -246,7 +249,7 @@ def das_request(das_deveui, das_payload):
         proc_pnd_req(get_das_pnd_req)
 
     # Event processing completed
-    return json_returnMessage
+    return das_success
 
 # proc_lns_event end
 
@@ -260,9 +263,6 @@ def proc_log_mes(level, log_message):
     logging.info(f"Timestamp: {time.ctime}")
     logging.info(f"Message: {log_message}")
 
-    #Option to forward log messages to an event hub
-    global return_json
-    return_json = {'epochTime':time.time(),'level':level,'logMessage':log_message,'msgType':'log'}
 # proc_log_mes end
 
 # Process position solution this is lns independent function
@@ -379,7 +379,7 @@ def lns_downlink(deveui, port, payload):
         }]
     }
 
-# Send C2D message
+    # Send C2D message
     try:
         # Create IoTHubRegistryManager
         registry_manager = IoTHubRegistryManager(IOTHUB_CONNECTION_STRING)
@@ -388,6 +388,7 @@ def lns_downlink(deveui, port, payload):
 
     except Exception as ex:
         logging.info( "Unexpected error {0}" % ex )
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':ex,'msgType':'log'}
         return False
 
     # Success
