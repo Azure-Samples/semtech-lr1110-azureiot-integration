@@ -10,7 +10,5 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: ComponentGovernanceComponentDetection@0
-  inputs:
-    sourceScanPath: 'src/Router,src/ActilityLoRaEdgeDecoder/LoRaEdgeDecoderActility,src/HeliumLoRaEdgeDecoder/LoRaEdgeDecoderHelium,src/TTNLoRaEdgeDecoder/LoReEdgeDecoderTTN'
-  displayName: 'Run Component Governance Component Detection'
+  task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+  displayName: ‘Component Detection’
