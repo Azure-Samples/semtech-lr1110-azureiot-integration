@@ -11,14 +11,8 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'src'
-    Contents: '**'
-    TargetFolder: '.'
 - task: ComponentGovernanceComponentDetection@0
   inputs:
-    sourceScanPath: '/home/vsts/work/1/s/src/'
     scanType: 'Register'
     verbosity: 'Verbose'
     alertWarningLevel: 'High'
