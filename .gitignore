@@ -13,6 +13,10 @@
 .venv
 Properties/
 
+# ignore azure-pipelines and cgmanifest
+azure-pipelines.yml
+cgmanifest.json
+
 # ignore Azurite
 __azu*
 __blo*
