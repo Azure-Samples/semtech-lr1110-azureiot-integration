@@ -16,3 +16,6 @@ steps:
     scanType: 'Register'
     verbosity: 'Verbose'
     alertWarningLevel: 'High'
+- task: notice@0
+  inputs:
+    outputformat: 'text'
