@@ -137,9 +137,9 @@ async def main(req : func.HttpRequest)-> func.HttpResponse:
 
     try:
         req_body = req.get_json()
-    except ValueError:
+    except Exception as ex:
         logging.error("no json body found")
-        return_json={"error":"no json body found"}
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(ex),'msgType':'log'}
         return func.HttpResponse(json.dumps(return_json),status_code=400,mimetype="application/json")
 
     msg_payload = json.dumps(req_body)
@@ -147,10 +147,9 @@ async def main(req : func.HttpRequest)-> func.HttpResponse:
     msg_type = {"msgType":"raw"}
     msg_json.update(msg_type)
 
-    if parse_payload(msg_payload) == False:
+    if parse_payload(msg_json) == False:
         logging.info("Error processing LNS event")
-        return_json={"error":"LNS processing failed"}
-        return func.HttpResponse(json.dumps(return_json),status_code=400,mimetype="application/json")
+        return func.HttpResponse(json.dumps(return_json),status_code=500,mimetype="application/json")
     
     return func.HttpResponse(json.dumps(return_json),status_code=200,mimetype="application/json")
 # Main end
@@ -162,6 +161,7 @@ def parse_payload(lns_payload):
     # Received JSON payload. Process payload
     deveui = ""
     ttn_device_id = ""
+    global return_json
 
     if 'identifiers' in lns_payload:
         deveui = lns_payload['identifiers'][1]['dev_eui']
@@ -190,6 +190,12 @@ def parse_payload(lns_payload):
         }
     }
     logging.info(f'Parsing message: device: {deveui}')
+
+    if(not deveui):
+        logging.info('no deveui found')
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':'no devEUI found','msgType':'log'}
+        return
+        
 
     # Build MGS message payload and send MGS request. This is dependant
     # on the selected LNS. The criteria for composing the MGS message is
@@ -223,6 +229,9 @@ def parse_payload(lns_payload):
 
 # Make a MGS request.
 def mgs_request(dev_data):
+
+    global return_json
+
     # Build MGS request
     mgs_request = {
         'deveui': dev_data['mgs_data']['mgs_deveui'],
@@ -234,6 +243,7 @@ def mgs_request(dev_data):
     r = requests.post(DASURI, headers=DAS_TOKEN_HEADER, json=mgs_request)
     if r.status_code != 200:
         logging.error(f"MGS request failed with status code {r.status_code}")
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(r.status_code),'msgType':'log'}
         return
 
     # Get MGS response
@@ -243,6 +253,7 @@ def mgs_request(dev_data):
     # Check for MGS errors
     if has_mgs_errors(mgs_resp):
         logging.error(f"MGS returned errors: {get_mgs_errors(mgs_resp)}")
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':str(get_mgs_errors(mgs_resp)),'msgType':'log'}
         return
 
     # Get MGS result

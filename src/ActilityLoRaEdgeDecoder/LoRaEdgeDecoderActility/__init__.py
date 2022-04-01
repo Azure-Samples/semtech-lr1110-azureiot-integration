@@ -356,8 +356,7 @@ def proc_strm_rec(deveui, offset, data):
 # proc_strm_rec end
 
 # Process downlink. This function is application dependent.
-# This is the LR1110 EVK/Tracker verwion of the function.
-# TODO. Correct this.
+# This is the LR1110 EVK/Tracker version of the function.
 def proc_dnlink(deveui, port, payload):
     # If port is 0 change to 150
     port = 150 if 0 == port else port
@@ -371,6 +370,8 @@ def proc_dnlink(deveui, port, payload):
 # This is the Chirpstack version of the function.
 def lns_downlink(deveui, port, payload):
     global return_json
+
+    deveui= deveui.replace('-', '')
 
     # Build downlink
     dnlink_dict = {
