@@ -37,9 +37,7 @@ Here is what you need to do if you would like to take advantage of this project 
 ### Installation Guide
 The following button deploy the shown infrastructure into your chosen subscription
 
-<a href="tbd" target="_blank">
-    <img src="https://aka.ms/deploytoazurebutton"/>
-</a>
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyaens%2Farm-templates%2Fmaster%2Farm-test%2FazuredeployBasic.json)
 
 The template includes the following components
 - IoT Hub
