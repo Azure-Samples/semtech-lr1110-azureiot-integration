@@ -6,7 +6,7 @@
     <Name>sql-sensordata</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{A9D27F30-06A0-49BE-B938-BF1130A293AD}</ProjectGuid>
+    <ProjectGuid>{a9d27f30-06a0-49be-b938-bf1130a293ad}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>

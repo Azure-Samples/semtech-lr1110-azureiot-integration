@@ -6,7 +6,7 @@ CREATE TABLE [dbo].[signal_position]
 	[algorithm] [nvarchar](50) NULL,
 	[latitude] [float] NOT NULL,
 	[longitude] [float] NOT NULL,
-	[longitude] [float] NULL,
+	[altitude] [float] NULL,
  CONSTRAINT [PK_signal_position] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
