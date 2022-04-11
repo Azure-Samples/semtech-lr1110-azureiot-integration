@@ -1,0 +1,21 @@
+{
+    "Name": "decoder-input",
+    "Type": "Data Stream",
+    "DataSourceType": "Event Hub",
+    "EventHubProperties": {
+        "ServiceBusNamespace": "",
+        "EventHubName": "",
+        "SharedAccessPolicyName": "",
+        "SharedAccessPolicyKey": "",
+        "ConsumerGroupName": "",
+        "AuthenticationMode": "ConnectionString"
+    },
+    "DataSourceCredentialDomain": "0c057633-1abc-4db2-a65a-7fd73b062d59.StreamAnalystics",
+    "Serialization": {
+        "Type": "Json",
+        "Encoding": "UTF8"
+    },
+    "PartitionKey": null,
+    "CompressionType": "None",
+    "ScriptType": "Input"
+}

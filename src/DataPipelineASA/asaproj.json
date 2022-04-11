@@ -1,0 +1,10 @@
+{
+    "name": "loraedge-ASA",
+    "startFile": "loraedge-ASA.asaql",
+    "configurations": [
+        {
+            "filePath": "JobConfig.json",
+            "subType": "JobConfig"
+        }
+    ]
+}
