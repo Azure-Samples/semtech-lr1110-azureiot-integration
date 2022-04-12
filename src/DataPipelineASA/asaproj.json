@@ -9,6 +9,10 @@
         {
             "filePath": "Outputs/sqldb.json",
             "subType": "Output"
+        },
+        {
+            "filePath": "Inputs/decoder-input.json",
+            "subType": "Input"
         }
     ]
 }
