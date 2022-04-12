@@ -1,0 +1,16 @@
+{
+    "Name": "sqldb",
+    "DataSourceType": "SQL Database",
+    "SQLDatabaseProperties": {
+        "Database": "[Required]",
+        "Server": "[Required]",
+        "User": "[Required]",
+        "Password": null,
+        "Table": "[Required]",
+        "MaxWriterCount": 1,
+        "MaxBatchCount": 10000,
+        "AuthenticationMode": "ConnectionString"
+    },
+    "DataSourceCredentialDomain": null,
+    "ScriptType": "Output"
+}

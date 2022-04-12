@@ -5,6 +5,10 @@
         {
             "filePath": "JobConfig.json",
             "subType": "JobConfig"
+        },
+        {
+            "filePath": "Outputs/sqldb.json",
+            "subType": "Output"
         }
     ]
 }

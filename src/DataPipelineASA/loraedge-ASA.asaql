@@ -4,7 +4,7 @@ SELECT
     [longitude] as longitude,
     [algorithm] as algorithm
 INTO
-    tablePos
+    sqldb
 FROM
 	decoderinput
 WHERE

@@ -1,5 +1,5 @@
 {
-    "Name": "decoder-input",
+    "Name": "decoderinput",
     "Type": "Data Stream",
     "DataSourceType": "Event Hub",
     "EventHubProperties": {
