@@ -34,10 +34,38 @@ Here is what you need to do if you would like to take advantage of this project 
 - LR1110 tracker.
 - Azure subscription.
 
-### Installation Guide
-The following button deploy the shown infrastructure into your chosen subscription
+### Setup Guide
+
+This is a step by step guide to setup the infrastructure an deploy the code to ingest, compute and visualise the LoRa Edge tracker data.
+
+For now the process is semi-automated. Certain steps need to be done manually.
+
+### Setup Prerequisites
+
+The following tools and extension are necessary to build and deploy the sources and projects.
+Please make sure to have the prerequisites ready before starting the setup.
+
+* [Visual Studio Code](https://code.visualstudio.com/)
+* [Visual Studio Code Azure Functions Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
+* [Visual Studio Code SQL Extension](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
+* [Visual Studio Code Stream Analytics Extension](https://marketplace.visualstudio.com/items?itemName=ms-bigdatatools.vscode-asa)
+* [Azure Functions Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash)
+* [\.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.201-windows-x64-installer)
+* [Python Version 3.9 or higher](https://www.python.org/downloads/) 
+
+### Deployment of the Azure services
+
+The following button deploys the core infrastructure into your chosen subscription.
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyaens%2Farm-templates%2Fmaster%2Farm-test%2FazuredeployBasic.json)
+
+For the custom deployment, the following parameters need to be defined:
+- Region: Select your designated Azure Region, make sure to pick a region which supports the necessary components
+- Unique Solution Prefix: Pick a unique string for your solution, please only use alphanumerical characters and dashes ("-"), special characters are not supported
+- Sql Administrator Login: pick an username for your SQL administrator
+- Sql Administrator Login Password: define a strong password for your SQL administrator. It has to include small letters, capital letters, a number and a special character
+- Sql Firewall Start IP: Add the public IP of your computer to this field, for testing purposes you can use ```1.1.1.1```
+- Sql Firewall End IP: Add the public IP of your computer to this field, for testing purposes you can use ```255.255.255.255```
 
 The template includes the following components
 - IoT Hub
@@ -45,6 +73,50 @@ The template includes the following components
 - SQL DB
 - EventHub
 - StreamAnalytics
+
+If you would like to deploy the ARM template manually you can find the code in the ```/arm``` directory.
+
+### Source code deployment
+
+This chapter describes how to deploy the source code into the created Azure components in step before.
+
+Before starting with the deployment, please make sure that the Azure services have been deployed and the necessary tool prerequisites have been installed on your local machine.
+
+Clone this github repository to your local computer:
+
+```git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration```
+
+### Azure SQL DB Deployment
+
+1. Open the ```SensorDataSQLDB``` Projekt with Visual Studio Code
+2. Make sure to establish the connection to the previously created DB with the Visual Studio Code SQL extension
+3. Open the ```signal_position.sql``` file in the project folder
+4. Click the execture button in the top right corner and make sure to pick the previously created connection
+5. The query should be successfully executed
+
+### Azure Stream Analytics deployment
+
+1. Open the ```DataPipelineASA``` Projekt with Visual Studio Code
+2. The Azure Stream Analytics Visual Code extension should recognize the project
+3. Open the ```decoder-input.json``` file in the Inputs folder
+4. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure EventHub as input
+5. Open the ```output.json`` file in the Outputs folder
+6. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure SQLDB as output
+    1. Make sure to use the same User and Password as defined in the deployment
+    2. Use the wizard to set the password in the file to store it in the secure configuration manager
+    3. The SQL output table has the name ```signal_position```
+7. Open the file ```loraedge-ASA.asaql``` and use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```ASA: Submit to Azure```
+8. Follow the wizard to deploy your Job to the previously deployed ASA instance on Azure
+
+
+### Router Function deployment
+
+### Decoder Function deployment
+
+### Function configuration
+
+
+
  
 ## Visualizing geolocation data using Power BI
 
