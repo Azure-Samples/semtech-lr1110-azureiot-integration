@@ -49,6 +49,8 @@ Please make sure to have the prerequisites ready before starting the setup.
 * [Visual Studio Code Azure Functions Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 * [Visual Studio Code SQL Extension](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
 * [Visual Studio Code Stream Analytics Extension](https://marketplace.visualstudio.com/items?itemName=ms-bigdatatools.vscode-asa)
+* [Visual Studio Code Python Extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+* [Visual Studio Code C# Extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 * [Azure Functions Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash)
 * [\.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.201-windows-x64-installer)
 * [Python Version 3.9 or higher](https://www.python.org/downloads/) 
@@ -108,8 +110,13 @@ Clone this github repository to your local computer:
 7. Open the file ```loraedge-ASA.asaql``` and use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```ASA: Submit to Azure```
 8. Follow the wizard to deploy your Job to the previously deployed ASA instance on Azure
 
-
 ### Router Function deployment
+
+1. Open the ```Router``` Projekt with Visual Studio Code
+2. The C# Visual Studio Code Extension should recognize the project
+3. Use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```Azure Functions: Deploy to Function App...```
+4. Follow the wizard and make sure to pick the function app ending with ```-csharp```
+5. The function should know be automatically built and deployed to Azure
 
 ### Decoder Function deployment
 
