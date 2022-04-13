@@ -184,7 +184,7 @@ https://das.loracloud.com/api/v1/device/send
 
 #### dasAuthToken
 
-Authentication Token for the Semtech LoRa Cloud. 
+Authentication Token for the Semtech LoRa Cloud. Tokens can be generated in the [Semtech Portal](https://www.loracloud.com/portal/modem_services/tokens).
 
 ```
 AQEAxxxxxHvset0OS9ZidYRgpSlYrd12NDvqxxxxxDVIGQAi+WFF
