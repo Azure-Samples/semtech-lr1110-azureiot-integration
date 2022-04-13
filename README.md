@@ -112,7 +112,7 @@ Clone this github repository to your local computer:
 
 ### Router Function deployment
 
-1. Open the ```Router``` Projekt with Visual Studio Code
+1. Open the ```Router``` project with Visual Studio Code
 2. The C# Visual Studio Code Extension should recognize the project
 3. Use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```Azure Functions: Deploy to Function App...```
 4. Follow the wizard and make sure to pick the function app ending with ```-csharp```
@@ -120,10 +120,83 @@ Clone this github repository to your local computer:
 
 ### Decoder Function deployment
 
-### Function configuration
+The Decoder function is used to transform the LoRa Uplink messages into usable and computable sensor information. The decoding function is depended on the LoRaWAN Networkserver where your LoRa Edge tracker is connected and is integrated with your Azure IoT Hub. At the moment the following vendors are supported:
+- Actility Thinkpark
+- The Things Network/The Things Industries
+- Helium Console
 
+Depending on the LNS of your choice, open one of the following projects with Visual Studio Code:
+- ```ActilityLoRaEdgeDecoder```
+- ```HeliumLoRaEdgeDecoder```
+- ```TTNLoRaEdgeDecoder```
 
+1. The C# Visual Studio Code Extension should recognize the project
+2. Use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```Azure Functions: Deploy to Function App...```
+3. Follow the wizard and make sure to pick the function app ending with ```-python```
+4. The function should know be automatically built and deployed to Azure
 
+### Configuration of the Router Function: Environment variables
+
+The Router function application uses a collection of environment variables. This section contains a description and example of each variable.
+
+#### EVENT_HUB_ROUTER_INPUT
+
+The connection string of the IoT Hub's Event Hub, used as trigger on the *Router* Function to send the messages to the appropriate decoders.
+
+```
+Endpoint=sb://something.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=xx;EntityPath=iothubname;
+SharedAccessKeyName=iothubowner
+```
+
+#### EVENT_HUB_ROUTER_OUTPUT
+
+Connection string defining the output of the router function to the enriched and decoded message Event Hub.
+
+```
+Endpoint=sb://something.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=xx
+```
+
+#### IOT_HUB_OWNER_CONNECTION_STRING
+
+The connection string for the IoT Hub used for device syncing and reading the device registry.
+
+```
+HostName=something.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=xx
+```
+
+#### DECODER_URL
+
+The Router function only supports a single decoder for moment. This configuration is the Azure Function URL of the deployed decoder Function. The URL can be found in the deployed Decoder function under ```Code + Test``` and ```Get function URL```
+```
+https://{yourfunctionname}.azurewebsites.net/api/LoRaEdgeDecoderHelium
+```
+### Configuration of the Decoder Function: Environment variables
+
+The Decoder function application uses a collection of environment variables. This section contains a description and example of each variable.
+
+#### dasLoRaCloudURI
+
+URL of the Semtech LoRa Cloud to compute the LoRa Edge positioning fix.
+
+```
+https://das.loracloud.com/api/v1/device/send
+```
+
+#### dasAuthToken
+
+Authentication Token for the Semtech LoRa Cloud. 
+
+```
+AQEAxxxxxHvset0OS9ZidYRgpSlYrd12NDvqxxxxxDVIGQAi+WFF
+```
+
+#### iotHubConnectionString
+
+The connection string for the IoT Hub used for sending downlinks to the LoRa devices 
+
+```
+HostName=something.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=xx
+```
  
 ## Visualizing geolocation data using Power BI
 
