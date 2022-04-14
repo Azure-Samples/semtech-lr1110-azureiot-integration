@@ -23,7 +23,7 @@ Main components:
 Here is what you need to do if you would like to take advantage of this project to connect your LoRa Edge tracker to Azure:
 
 * Deploy ARM template to your Azure subscription.
-* Setup configuration paramters based on your specific deployment (e.g., Event Hub connection string, LNS to be used, etc.).
+* Setup configuration parameters based on your specific deployment (e.g., Event Hub connection string, LNS to be used, etc.).
 * Configure your LoRaWAN gateway to connect to your desired LNS provider.
 * Configure your LNS via the corresponding console to listen to your gateway/tracker and to push data to the corresponding IoT Hub.
 * Reset your tracker and make sure it wasn't connected to another LNS provider (and if it was, please make sure you remove it first before trying to connect it to a new one).
