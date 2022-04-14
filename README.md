@@ -63,7 +63,7 @@ The following button deploys the core infrastructure into your chosen subscripti
 
 For the custom deployment, the following parameters need to be defined:
 - Region: Select your designated Azure Region, make sure to pick a region which supports the necessary components
-- Unique Solution Prefix: Pick a unique string for your solution, please only use alphanumerical characters and dashes ("-"), special characters are not supported
+- Unique Solution Prefix: Pick a unique string for your solution, please use numbers and lower case characters only
 - Sql Administrator Login: pick an username for your SQL administrator
 - Sql Administrator Login Password: define a strong password for your SQL administrator. It has to include small letters, capital letters, a number and a special character
 - Sql Firewall Start IP: Add the public IP of your computer to this field, for testing purposes you can use ```1.1.1.1```
