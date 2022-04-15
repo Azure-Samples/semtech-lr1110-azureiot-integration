@@ -93,7 +93,7 @@ Clone this github repository to your local computer:
 1. Open the ```SensorDataSQLDB``` Project with Visual Studio Code
 2. Make sure to establish the connection to the previously created DB with the Visual Studio Code SQL extension
 3. Open the ```signal_position.sql``` file in the project folder
-4. Click the execture button in the top right corner and make sure to pick the previously created connection
+4. Click the execute button in the top right corner and make sure to pick the previously created connection
 5. The query should be successfully executed
 
 ### Azure Stream Analytics deployment
