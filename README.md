@@ -98,7 +98,7 @@ Clone this github repository to your local computer:
 
 ### Azure Stream Analytics deployment
 
-1. Open the ```DataPipelineASA``` Projekt with Visual Studio Code
+1. Open the ```DataPipelineASA``` Project with Visual Studio Code
 2. The Azure Stream Analytics Visual Code extension should recognize the project
 3. Open the ```decoder-input.json``` file in the Inputs folder
 4. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure EventHub as input
