@@ -102,7 +102,7 @@ Clone this github repository to your local computer:
 2. The Azure Stream Analytics Visual Code extension should recognize the project
 3. Open the ```decoder-input.json``` file in the Inputs folder
 4. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure EventHub as input
-5. Open the ```output.json`` file in the Outputs folder
+5. Open the ```sqldb.json``` file in the Outputs folder
 6. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure SQLDB as output
     1. Make sure to use the same User and Password as defined in the deployment
     2. Use the wizard to set the password in the file to store it in the secure configuration manager
