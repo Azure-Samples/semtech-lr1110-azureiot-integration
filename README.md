@@ -130,7 +130,7 @@ Depending on the LNS of your choice, open one of the following projects with Vis
 - ```HeliumLoRaEdgeDecoder```
 - ```TTNLoRaEdgeDecoder```
 
-1. The C# Visual Studio Code Extension should recognize the project
+1. The Python Visual Studio Code Extension should recognize the project
 2. Use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```Azure Functions: Deploy to Function App...```
 3. Follow the wizard and make sure to pick the function app ending with ```-python```
 4. The function should know be automatically built and deployed to Azure
