@@ -101,7 +101,10 @@ git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
 ### Azure Stream Analytics deployment
 
 1. In your file explorer navigate to the ```DataPipelineASA``` folder and open it with Visual Studio Code
-2. The Azure Stream Analytics Visual Code extension should recognize the project
+2. The Azure Stream Analytics Visual Code extension should recognize the project, you can verify this if the following options are shown in the ```loraedge-ASA.asaql``` file:
+
+![ASA Extension options](images/asa-extension.png)
+
 3. Open the ```decoder-input.json``` file in the Inputs folder
 4. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure EventHub as input
 5. Open the ```output.json`` file in the Outputs folder
@@ -111,6 +114,9 @@ git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
     3. The SQL output table has the name ```signal_position```
 7. Open the file ```loraedge-ASA.asaql``` and use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```ASA: Submit to Azure```
 8. Follow the wizard to deploy your Job to the previously deployed ASA instance on Azure
+9. Once the deployment was successfull the Cloud Job View of the Azure Stream Analytics Tools extension should open and you should be able to start the job.
+
+![ASA Cloud View](images/asa-cloud-view.png)
 
 ### Router Function deployment
 
@@ -118,7 +124,11 @@ git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
 2. The C# Visual Studio Code Extension should recognize the project
 3. Use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```Azure Functions: Deploy to Function App...```
 4. Follow the wizard and make sure to pick the function app ending with ```-csharp```
-5. The function should know be automatically built and deployed to Azure
+5. The function should now be automatically built and deployed to Azure
+6. Before the functions starts working, we need to set some environment variables this will be done after we deployed the decoder function.
+5. Double check if the deployment was successful in the Console output of your Visual Studio Code:
+
+![Azure Function deployment output](images/azure-func-csharp.png)
 
 ### Decoder Function deployment
 
@@ -132,12 +142,17 @@ Depending on the LNS of your choice, navigate to one of the following folders an
 - ```HeliumLoRaEdgeDecoder```
 - ```TTNLoRaEdgeDecoder```
 
-1. The C# Visual Studio Code Extension should recognize the project
+1. The Python Visual Studio Code Extension should recognize the project
 2. Use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```Azure Functions: Deploy to Function App...```
 3. Follow the wizard and make sure to pick the function app ending with ```-python```
-4. The function should know be automatically built and deployed to Azure
+4. The function should now be automatically built and deployed to Azure
+5. Double check if the deployment was successful in the Console output of your Visual Studio Code:
+
+![Azure Function deployment output](images/azure-func-python.png)
 
 ### Configuration of the Router Function: Environment variables
+
+After the deployment of the function code succeeded, we need to take care of the configuration.
 
 The Router function application uses a collection of environment variables. This section contains a description and example of each variable.
 
@@ -173,6 +188,8 @@ The Router function only supports a single decoder for moment. This configuratio
 https://{yourfunctionname}.azurewebsites.net/api/LoRaEdgeDecoderHelium
 ```
 ### Configuration of the Decoder Function: Environment variables
+
+After the deployment of the function code succeeded, we need to take care of the configuration.
 
 The Decoder function application uses a collection of environment variables. This section contains a description and example of each variable.
 
