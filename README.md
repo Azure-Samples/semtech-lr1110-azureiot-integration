@@ -23,7 +23,7 @@ Main components:
 Here is what you need to do if you would like to take advantage of this project to connect your LoRa Edge tracker to Azure:
 
 * Deploy ARM template to your Azure subscription.
-* Setup configuration parameters based on your specific deployment (e.g., Event Hub connection string, LNS to be used, etc.).
+* Setup configuration paramters based on your specific deployment (e.g., Event Hub connection string, LNS to be used, etc.).
 * Configure your LoRaWAN gateway to connect to your desired LNS provider.
 * Configure your LNS via the corresponding console to listen to your gateway/tracker and to push data to the corresponding IoT Hub.
 * Reset your tracker and make sure it wasn't connected to another LNS provider (and if it was, please make sure you remove it first before trying to connect it to a new one).
@@ -47,8 +47,8 @@ Please make sure to have the prerequisites ready before starting the setup.
 
 * [Visual Studio Code](https://code.visualstudio.com/)
 * [Visual Studio Code Azure Functions Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
-* [Visual Studio Code SQL Extension](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
-* [Visual Studio Code Stream Analytics Extension](https://marketplace.visualstudio.com/items?itemName=ms-bigdatatools.vscode-asa)
+* [Visual Studio Code SQL Server (mssql) Extension](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql)
+* [Visual Studio Code Stream Analytics Tools Extension](https://marketplace.visualstudio.com/items?itemName=ms-bigdatatools.vscode-asa)
 * [Visual Studio Code Python Extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 * [Visual Studio Code C# Extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 * [Azure Functions Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash)
@@ -63,7 +63,7 @@ The following button deploys the core infrastructure into your chosen subscripti
 
 For the custom deployment, the following parameters need to be defined:
 - Region: Select your designated Azure Region, make sure to pick a region which supports the necessary components
-- Unique Solution Prefix: Pick a unique string for your solution, please use numbers and lower case characters only
+- Unique Solution Prefix: Pick a unique string for your solution, please only use alphanumerical characters, special characters are not supported
 - Sql Administrator Login: pick an username for your SQL administrator
 - Sql Administrator Login Password: define a strong password for your SQL administrator. It has to include small letters, capital letters, a number and a special character
 - Sql Firewall Start IP: Add the public IP of your computer to this field, for testing purposes you can use ```1.1.1.1```
@@ -86,23 +86,25 @@ Before starting with the deployment, please make sure that the Azure services ha
 
 Clone this github repository to your local computer:
 
-```git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration```
+```
+git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
+```
 
 ### Azure SQL DB Deployment
 
-1. Open the ```SensorDataSQLDB``` Project with Visual Studio Code
+1. In your file explorer navigate to the ```SensorDataSQLDB``` folder and open it with Visual Studio Code
 2. Make sure to establish the connection to the previously created DB with the Visual Studio Code SQL extension
 3. Open the ```signal_position.sql``` file in the project folder
-4. Click the execute button in the top right corner and make sure to pick the previously created connection
+4. Click the execture button in the top right corner and make sure to pick the previously created connection
 5. The query should be successfully executed
 
 ### Azure Stream Analytics deployment
 
-1. Open the ```DataPipelineASA``` Project with Visual Studio Code
+1. In your file explorer navigate to the ```DataPipelineASA``` folder and open it with Visual Studio Code
 2. The Azure Stream Analytics Visual Code extension should recognize the project
 3. Open the ```decoder-input.json``` file in the Inputs folder
 4. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure EventHub as input
-5. Open the ```sqldb.json``` file in the Outputs folder
+5. Open the ```output.json`` file in the Outputs folder
 6. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure SQLDB as output
     1. Make sure to use the same User and Password as defined in the deployment
     2. Use the wizard to set the password in the file to store it in the secure configuration manager
@@ -112,7 +114,7 @@ Clone this github repository to your local computer:
 
 ### Router Function deployment
 
-1. Open the ```Router``` project with Visual Studio Code
+1. In your file explorer navigate to the ```Router``` folder and open it with Visual Studio Code
 2. The C# Visual Studio Code Extension should recognize the project
 3. Use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```Azure Functions: Deploy to Function App...```
 4. Follow the wizard and make sure to pick the function app ending with ```-csharp```
@@ -120,17 +122,17 @@ Clone this github repository to your local computer:
 
 ### Decoder Function deployment
 
-The Decoder function is used to transform the LoRa Uplink messages into usable and computable sensor information. The decoding function is depended on the LoRaWAN Networkserver where your LoRa Edge tracker is connected and is integrated with your Azure IoT Hub. At the moment, the following vendors are supported:
-- Actility ThinkPark
+The Decoder function is used to transform the LoRa Uplink messages into usable and computable sensor information. The decoding function is depended on the LoRaWAN Networkserver where your LoRa Edge tracker is connected and is integrated with your Azure IoT Hub. At the moment the following vendors are supported:
+- Actility Thinkpark
 - The Things Network/The Things Industries
 - Helium Console
 
-Depending on the LNS of your choice, open one of the following projects with Visual Studio Code:
+Depending on the LNS of your choice, navigate to one of the following folders and open it with Visual Studio Code
 - ```ActilityLoRaEdgeDecoder```
 - ```HeliumLoRaEdgeDecoder```
 - ```TTNLoRaEdgeDecoder```
 
-1. The Python Visual Studio Code Extension should recognize the project
+1. The C# Visual Studio Code Extension should recognize the project
 2. Use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```Azure Functions: Deploy to Function App...```
 3. Follow the wizard and make sure to pick the function app ending with ```-python```
 4. The function should know be automatically built and deployed to Azure
