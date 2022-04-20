@@ -73,8 +73,8 @@ The template includes the following components
 - IoT Hub
 - Azure Function
 - SQL DB
-- EventHub
-- StreamAnalytics
+- Event Hub
+- Stream Analytics
 
 If you would like to deploy the ARM template manually you can find the code in the ```/arm``` directory.
 
