@@ -80,7 +80,7 @@ If you would like to deploy the ARM template manually you can find the code in t
 
 ### Source code deployment
 
-This chapter describes how to deploy the source code into the created Azure components in the step before.
+This chapter describes how to deploy the source code into the created Azure components from the step before.
 
 Before starting with the deployment, please make sure that the Azure services have been deployed and the necessary tool pre-requisites have been installed on your local machine.
 
