@@ -1,0 +1,384 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "uniqueSolutionPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "Prefix used for resource names. Should be unique as this will also be used for domain names."
+            }
+        },
+        "sqlAdministratorLogin": {
+            "type": "string",
+            "metadata": {
+                "description": "The SQL database admin name."
+            }
+        },
+        "sqlAdministratorLoginPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The SQL database admin login password."
+            }
+        },
+        "sqlFirewallStartIP": {
+            "type": "string",
+            "metadata": {
+                "description": "Start IP for the SQL Server Firewall whitelist"
+            }
+        },
+        "sqlFirewallEndIP": {
+            "type": "string",
+            "metadata": {
+                "description": "End IP for the SQL Server Firewall whitelist"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "location": "[resourceGroup().location]",
+        "storageAccountName": "[concat(parameters('uniqueSolutionPrefix'), 'storage')]",
+        "storageAccountType": "Standard_LRS",
+        "iotHubName": "[concat(parameters('uniqueSolutionPrefix'), 'hub')]",
+        "streamAnalyticsJobName": "[concat(parameters('uniqueSolutionPrefix'),'streamanalytics')]",
+        "sqlServerName": "[concat(parameters('uniqueSolutionPrefix'),'sqlserver')]",
+        "sqlDatabaseName": "[concat(parameters('uniqueSolutionPrefix'),'sqldb')]",
+        "functionAppNamePython": "[concat(parameters('uniqueSolutionPrefix'),'fnapp-python')]",
+        "functionAppNameCSharp": "[concat(parameters('uniqueSolutionPrefix'),'fnapp-csharp')]",
+        "applicationInsightsName": "[concat(parameters('uniqueSolutionPrefix'),'appinsights')]",
+        "namespaceName": "[concat(parameters('uniqueSolutionPrefix'),'ehns')]",
+        "eventhubSku": "Standard",
+        "skuCapacity": 1,
+        "eventHubName": "[concat(parameters('uniqueSolutionPrefix'),'eh')]",
+        "consumerGroupName": "asa"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "[variables('storageAccountType')]",
+                "tier": "Standard"
+            },
+            "name": "[variables('storageAccountName')]",
+            "apiVersion": "2021-06-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "minimumTlsVersion": "TLS1_0",
+                "allowBlobPublicAccess": true,
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": false,
+                "encryption": {
+                    "services": {
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Devices/iothubs/', variables('iotHubName'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Devices/IotHubs",
+            "sku": {
+                "name": "S1",
+                "tier": "Standard",
+                "capacity": 1
+            },
+            "name": "[variables('iotHubName')]",
+            "apiVersion": "2021-03-31",
+            "location": "[variables('location')]",
+            "properties": {
+                "ipFilterRules": [],
+                "eventHubEndpoints": {
+                    "events": {
+                        "retentionTimeInDays": 1,
+                        "partitionCount": 4
+                    }
+                },
+                "routing": {
+                    "endpoints": {
+                        "serviceBusQueues": [],
+                        "serviceBusTopics": [],
+                        "eventHubs": [],
+                        "storageContainers": []
+                    },
+                    "routes": [],
+                    "fallbackRoute": {
+                        "name": "$fallback",
+                        "source": "DeviceMessages",
+                        "condition": "true",
+                        "endpointNames": [
+                            "events"
+                        ],
+                        "isEnabled": true
+                    }
+                },
+                "messagingEndpoints": {
+                    "fileNotifications": {
+                        "lockDurationAsIso8601": "PT1M",
+                        "ttlAsIso8601": "PT1H",
+                        "maxDeliveryCount": 10
+                    }
+                },
+                "enableFileUploadNotifications": false,
+                "cloudToDevice": {
+                    "maxDeliveryCount": 10,
+                    "defaultTtlAsIso8601": "PT1H",
+                    "feedback": {
+                        "lockDurationAsIso8601": "PT1M",
+                        "ttlAsIso8601": "PT1H",
+                        "maxDeliveryCount": 10
+                    }
+                },
+                "features": "None",
+                "allowedFqdnList": []
+            }
+        },
+        {
+            "apiVersion": "2020-03-01",
+            "name": "[variables('streamAnalyticsJobName')]",
+            "location": "[resourceGroup().location]",
+            "type": "Microsoft.StreamAnalytics/StreamingJobs",
+            "dependsOn": [
+            ],
+            "properties": {
+                "sku": {
+                    "name": "Standard"
+                },
+                "outputErrorPolicy": "stop",
+                "eventsOutOfOrderPolicy": "adjust",
+                "eventsOutOfOrderMaxDelayInSeconds": 0,
+                "eventsLateArrivalMaxDelayInSeconds": 5,
+                "dataLocale": "en-US",
+                "inputs": [
+                ],
+                "outputs": [
+                ]
+            },
+            "identity": {
+                "type": "systemAssigned"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers",
+            "apiVersion": "2020-02-02-preview",
+            "name": "[variables('sqlServerName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "administratorLogin": "[parameters('sqlAdministratorLogin')]",
+                "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]"
+            },
+            "resources": [
+                {
+                    "type": "databases",
+                    "apiVersion": "2020-08-01-preview",
+                    "name": "[variables('sqlDatabaseName')]",
+                    "location": "[resourceGroup().location]",
+                    "sku": {
+                        "name": "GP_S_Gen5",
+                        "tier": "GeneralPurpose",
+                        "family": "Gen5",
+                        "capacity": 2
+                    },
+                    "kind": "v12.0,user,vcore,serverless",
+                    "properties": {
+                        "collation": "SQL_Latin1_General_CP1_CI_AS",
+                        "maxSizeBytes": 34359738368,
+                        "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
+                        "zoneRedundant": false,
+                        "readScale": "Disabled",
+                        "autoPauseDelay": 60,
+                        "storageAccountType": "GRS",
+                        "minCapacity": 0.5
+                    },
+                    "dependsOn": [
+                        "[variables('sqlServerName')]"
+                    ]
+                },
+                {
+                    "type": "firewallRules",
+                    "apiVersion": "2014-04-01",
+                    "dependsOn": [
+                        "[variables('sqlServerName')]"
+                    ],
+                    "location": "[resourceGroup().location]",
+                    "name": "AllowAllClientIps",
+                    "properties": {
+                        "endIpAddress": "[parameters('sqlFirewallEndIP')]",
+                        "startIpAddress": "[parameters('sqlFirewallStartIP')]"
+                    }
+                },
+                {
+                    "type": "firewallRules",
+                    "apiVersion": "2014-04-01",
+                    "dependsOn": [
+                        "[variables('sqlServerName')]"
+                    ],
+                    "location": "[resourceGroup().location]",
+                    "name": "AllowAllAzureServices",
+                    "properties": {
+                        "endIpAddress": "0.0.0.0",
+                        "startIpAddress": "0.0.0.0"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2020-06-01",
+            "name": "[variables('functionAppNameCSharp')]",
+            "location": "[variables('location')]",
+            "kind": "functionapp,linux",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';EndpointSuffix=',environment().suffixes.storage,';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-06-01').keys[0].value)]"
+                        },
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~3"
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components', variables('applicationInsightsName')), '2020-02-02-preview').InstrumentationKey]"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "dotnet"
+                        },
+                        {
+                            "name": "EVENT_HUB_ROUTER_INPUT",
+                            "value": ""
+                        },
+                        {
+                            "name": "EVENT_HUB_ROUTER_OUTPUT",
+                            "value": ""
+                        },
+                        {
+                            "name": "DECODER_URL",
+                            "value": ""
+                        }
+                    ]
+                },
+                "reserved": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2020-06-01",
+            "name": "[variables('functionAppNamePython')]",
+            "location": "[variables('location')]",
+            "kind": "functionapp,linux",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';EndpointSuffix=',environment().suffixes.storage,';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-06-01').keys[0].value)]"
+                        },
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~3"
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components', variables('applicationInsightsName')), '2020-02-02-preview').InstrumentationKey]"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "python"
+                        },
+                        {
+                            "name": "eventHubInputConnectionString",
+                            "value": ""
+                        },
+                        {
+                            "name": "eventHubOutputConnectionString",
+                            "value": ""
+                        },
+                        {
+                            "name": "outputEventHubName",
+                            "value": ""
+                        },
+                        {
+                            "name": "dasLoRaCloudURI",
+                            "value": "https://das.loracloud.com/api/v1/device/send"
+                        },
+                        {
+                            "name": "dasAuthToken",
+                            "value": ""
+                        },
+                        {
+                            "name": "iotHubConnectionString",
+                            "value": ""
+                        }
+                    ]
+                },
+                "reserved": true
+            }
+        },
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2020-02-02-preview",
+            "name": "[variables('applicationInsightsName')]",
+            "location": "[variables('location')]",
+            "tags": {
+                "[concat('hidden-link:', resourceId('Microsoft.Web/sites', variables('applicationInsightsName')))]": "Resource"
+            },
+            "properties": {
+                "ApplicationId": "[variables('applicationInsightsName')]",
+                "Request_Source": "rest",
+                "Application_Type": "web"
+            }
+        },
+        {
+            "apiVersion": "2018-01-01-preview",
+            "name": "[variables('namespaceName')]",
+            "type": "Microsoft.EventHub/namespaces",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "[variables('eventhubSku')]",
+                "tier": "[variables('eventhubSku')]",
+                "capacity": "[variables('skuCapacity')]"
+            },
+            "properties": {},
+            "resources": [
+                {
+                    "apiVersion": "2017-04-01",
+                    "name": "[variables('eventHubName')]",
+                    "type": "eventhubs",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.EventHub/namespaces/', variables('namespaceName'))]"
+                    ],
+                    "properties": {},
+                    "resources": [
+                        {
+                            "apiVersion": "2017-04-01",
+                            "name": "[variables('consumerGroupName')]",
+                            "type": "consumergroups",
+                            "dependsOn": [ "[variables('eventHubName')]" ],
+                            "properties": {}
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "outputs": {}
+}
