@@ -36,7 +36,7 @@ Here is what you need to do if you would like to take advantage of this project 
 
 ### Setup Guide
 
-This is a step by step guide to setup the infrastructure an deploy the code to ingest, compute and visualise the LoRa Edge tracker data.
+This is a step by step guide to setup the infrastructure and deploy the code to ingest, compute, and visualise the LoRa Edge tracker data.
 
 For now the process is semi-automated. Certain steps need to be done manually.
 
