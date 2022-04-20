@@ -40,10 +40,10 @@ This is a step by step guide to setup the infrastructure and deploy the code to 
 
 For now the process is semi-automated. Certain steps need to be done manually.
 
-### Setup Prerequisites
+### Setup Pre-requisites
 
 The following tools and extension are necessary to build and deploy the sources and projects.
-Please make sure to have the prerequisites ready before starting the setup.
+Please make sure to have the pre-requisites ready before starting the setup.
 
 * [Visual Studio Code](https://code.visualstudio.com/)
 * [Visual Studio Code Azure Functions Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
