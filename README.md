@@ -133,7 +133,7 @@ git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
 ### Decoder Function deployment
 
 The Decoder function is used to transform the LoRa Uplink messages into usable and computable sensor information. The decoding function is depended on the LoRaWAN Network Server (LNS) where your LoRa Edge tracker is connected and is integrated with your Azure IoT Hub. At the moment the following vendors are supported:
-- Actility ThinkPark
+- Actility ThingPark
 - The Things Network/The Things Industries
 - Helium Console
 
