@@ -3,7 +3,7 @@
 The [LR1110](https://www.semtech.com/products/wireless-rf/lora-edge/lr1110trk1cks) LoRa Edge tracker is Semtech's new base design tracker technology. It is battery operated, leverages LoRa connectivity, and it doesn't require a GPS because it scans for geolocation signals such as WiFi and GNSS to compute its location in the cloud, making it very cost effective.
 The payload coming from the tracker needs to be decoded, which you can do by leveraging Semtech's open source library that interacts with their LoRa Cloud geolocation service.
 
-This project takes Semtech's decoder to the next level by integrating it with Azure IoT Hub and making it easy to deploy to your Azure subscription via an Azure Resource Manager (ARM) template and leverage Azure services to implement your business applications. Because there is code that is depedent on the LoRaWAN Network Server (LNS) implementation being used, we provide support for 3 popular LNS providers as an example: Actility, Helium, and The Things Industries. Users of this code are welcome to extend it to support additional LNS providers.
+This project takes Semtech's decoder to the next level by integrating it with Azure IoT Hub and making it easy to deploy to your Azure subscription via an Azure Resource Manager (ARM) template and leverage Azure services to implement your business applications. Because there is code that is dependent on the LoRaWAN Network Server (LNS) implementation being used, we provide support for 3 popular LNS providers as an example: Actility, Helium, and The Things Industries. Users of this code are welcome to extend it to support additional LNS providers.
 
 ## Architecture and General Design
 
@@ -23,12 +23,12 @@ Main components:
 Here is what you need to do if you would like to take advantage of this project to connect your LoRa Edge tracker to Azure:
 
 * Deploy ARM template to your Azure subscription.
-* Setup configuration paramters based on your specific deployment (e.g., Event Hub connection string, LNS to be used, etc.).
+* Setup configuration paramaters based on your specific deployment (e.g., Event Hub connection string, LNS to be used, etc.).
 * Configure your LoRaWAN gateway to connect to your desired LNS provider.
 * Configure your LNS via the corresponding console to listen to your gateway/tracker and to push data to the corresponding IoT Hub.
 * Reset your tracker and make sure it wasn't connected to another LNS provider (and if it was, please make sure you remove it first before trying to connect it to a new one).
 
-### Prerequisites
+### Pre-requisites
 
 - LoRaWAN gateway to connect to the desired LoRaWAN network/LNS.
 - LR1110 tracker.
