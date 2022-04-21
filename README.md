@@ -233,7 +233,7 @@ HostName=something.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAcces
 
 ### Validate your deployment
 
-To check if the setup was successful verify the following Azure components.
+To check if the setup was successful, please verify the following Azure components:
 1. Make sure your LoRa Edge device is sending LoRaWAN uplink messages to your designated LoRaWAN Networkserver
 2. Check your IoT Hub instance and see if the used message count is raising according to the LoRaWAN uplink messages received by the LNS
 
