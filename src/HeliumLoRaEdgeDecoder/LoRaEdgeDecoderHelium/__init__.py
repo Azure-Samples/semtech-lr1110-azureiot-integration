@@ -237,7 +237,7 @@ def das_request(das_deveui, das_payload):
     
     # If response has position solution process position solution
     if has_das_pos_sol(das_result):
-        proc_pos_sol(get_das_pos_sol(das_result))
+        proc_pos_sol(get_das_pos_sol(das_result),das_deveui)
 
     # If response has log messages process log messages
     if has_das_log_msgs(das_result):
@@ -265,7 +265,7 @@ def proc_log_mes(level, log_message):
 # proc_log_mes end
 
 # Process position solution this is lns independent function
-def proc_pos_sol(position_solution):
+def proc_pos_sol(position_solution,das_deveui):
     latitude = get_das_pos_sol_lat(position_solution)
     longitude = get_das_pos_sol_lon(position_solution)
     algorithm = get_das_pos_sol_algrm(position_solution)
@@ -273,13 +273,14 @@ def proc_pos_sol(position_solution):
     uplinkTime = time.time()
 
     logging.info("Position solution.")
+    logging.info(f"DevEUI: {das_deveui}")
     logging.info(f"Algorithm: {algorithm}")
     logging.info(f"Latitude: {latitude}")
     logging.info(f"Longitude: {longitude}")
     logging.info(f"Altitude: {get_das_pos_sol_alt(position_solution)}")
 
     global return_json
-    return_json = {'algorithm':algorithm,'latitude':latitude,'longitude':longitude,'altitude':altitude,'msgType':'pos','epochTime':uplinkTime}
+    return_json = {'devEUI':das_deveui,'algorithm':algorithm,'latitude':latitude,'longitude':longitude,'altitude':altitude,'msgType':'pos','epochTime':uplinkTime}
 # proc_pos_sol end
 
 

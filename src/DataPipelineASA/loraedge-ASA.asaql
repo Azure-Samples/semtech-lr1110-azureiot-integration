@@ -1,11 +1,13 @@
 SELECT
-    DATEADD(second, epochTime, '1970-01-01T00:00:00Z') as [timestamp],
-    [latitude] as latitude,
-    [longitude] as longitude,
-    [algorithm] as algorithm
+    DATEADD(second, decoded.epochTime, '1970-01-01T00:00:00Z') as [timestamp],
+    decoded.devEUI as devEUI,
+    decoded.latitude as latitude,
+    decoded.longitude as longitude,
+    decoded.algorithm as algorithm,
+    decoded.altitude as altitude
 INTO
     sqldb
 FROM
 	decoderinput
 WHERE
-	msgType LIKE 'pos'
+	decoded.msgType LIKE 'pos'

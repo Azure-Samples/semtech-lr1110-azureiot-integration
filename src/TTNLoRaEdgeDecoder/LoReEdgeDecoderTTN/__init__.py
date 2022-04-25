@@ -311,9 +311,10 @@ def proc_pos_sol(mgs_result, dev_data):
     logging.info(f"Latitude: {latitude}")
     logging.info(f"Longitude: {longitude}")
     logging.info(f"Altitude: {get_mgs_pos_sol_alt(position_solution)}")
+    logging.info(f"devEUI: {dev_data['mgs_data']['mgs_deveui']}")
 
     global return_json
-    return_json = {'algorithm':algorithm,'latitude':latitude,'longitude':longitude,'altitude':altitude,'msgType':'pos','epochTime':uplinkTime}
+    return_json = {'devEUI':dev_data['mgs_data']['mgs_deveui'],'algorithm':algorithm,'latitude':latitude,'longitude':longitude,'altitude':altitude,'msgType':'pos','epochTime':uplinkTime}
 
 
 # Process stream records. This function is application dependent.
