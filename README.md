@@ -129,10 +129,12 @@ git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
 1. In your file explorer navigate to the ```Router``` folder and open it with Visual Studio Code
 2. The C# Visual Studio Code Extension should recognize the project
 3. Use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```Azure Functions: Deploy to Function App...```
-4. Follow the wizard and make sure to pick the function app ending with ```-csharp```
-5. The function should now be automatically built and deployed to Azure
-6. Before the functions starts working, we need to set some environment variables this will be done after we deployed the decoder function.
-5. Double check if the deployment was successful in the Console output of your Visual Studio Code:
+4. An input window should open below the command bar asking for your subscription.
+5. Pick the subscription where you performend the automatic deployment.
+6. Next the dialog will ask you to create a new function app or use an existing function. Make sure you pick the existing function app ending with ```-csharp```
+7. The function should now be automatically built and deployed to Azure
+8. Before the functions starts working, we need to set some environment variables this will be done after we deployed the decoder function.
+9.  Double check if the deployment was successful in the Console output of your Visual Studio Code:
 
 ![Azure Function deployment output](images/azure-func-csharp.png)
 
@@ -150,9 +152,11 @@ Depending on the LNS of your choice, navigate to one of the following folders an
 
 1. The Python Visual Studio Code Extension should recognize the project
 2. Use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```Azure Functions: Deploy to Function App...```
-3. Follow the wizard and make sure to pick the function app ending with ```-python```
-4. The function should now be automatically built and deployed to Azure
-5. Double check if the deployment was successful in the Console output of your Visual Studio Code:
+3. An input window should open below the command bar asking for your subscripton.
+4. Pick the subscription where you performend the automatic deployment.
+5. Next the dialog will ask you to create a new function or use an existing function. Make sure you pick the existing function app ending with ```-python```
+6. The function should now be automatically built and deployed to Azure
+7. Double check if the deployment was successful in the Console output of your Visual Studio Code:
 
 ![Azure Function deployment output](images/azure-func-python.png)
 
@@ -170,6 +174,11 @@ The Router function application uses a collection of environment variables. If t
 
 The connection string of the IoT Hub's Event Hub, used as trigger on the *Router* Function to send the messages to the appropriate decoders.
 
+Please follow this link for a detailed documentation how to find the connection string. Make sure to use the ```Event Hub-compatible endpoint```.
+
+[Read from the built-in IoT Hub endpoint](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-read-builtin?msclkid=52470bd2c57411ec9277b8156a93aaba#read-from-the-built-in-endpoint)
+
+
 ```
 Endpoint=sb://something.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=xx;EntityPath=iothubname;
 SharedAccessKeyName=iothubowner
@@ -179,13 +188,21 @@ SharedAccessKeyName=iothubowner
 
 Connection string defining the output of the router function to the enriched and decoded message Event Hub.
 
+Please follow this link for a detailed documentation how to find the connection string:
+
+[Connection string for a specific event hub in a namespace](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-get-connection-string?msclkid=b508428dc57311ec83a2eac406231e55#connection-string-for-a-specific-event-hub-in-a-namespace)
+
 ```
-Endpoint=sb://something.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=xx
+Endpoint=sb://<NamespaceName>.servicebus.windows.net/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>;EntityPath=<EventHubName>
 ```
 
 #### IOT_HUB_OWNER_CONNECTION_STRING
 
 The connection string for the IoT Hub used for device syncing and reading the device registry.
+
+Please follow this link for a detailed documentation how to find the connection string. 
+
+[Retrieve connection string iothubowner shared access policy ](https://docs.microsoft.com/en-us/azure/iot-dps/tutorial-set-up-cloud?msclkid=033e6a64c57511ec94a8940be2fa3c6e#retrieve-connection-string-for-iot-hub)
 
 ```
 HostName=something.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=xx
@@ -225,7 +242,11 @@ AQEAxxxxxHvset0OS9ZidYRgpSlYrd12NDvqxxxxxDVIGQAi+WFF
 
 #### iotHubConnectionString
 
-The connection string for the IoT Hub used for sending downlinks to the LoRa devices 
+The connection string for the IoT Hub used for sending downlinks to the LoRa devices.
+
+Please follow this link for a detailed documentation how to find the connection string. 
+
+[Retrieve connection string iothubowner shared access policy ](https://docs.microsoft.com/en-us/azure/iot-dps/tutorial-set-up-cloud?msclkid=033e6a64c57511ec94a8940be2fa3c6e#retrieve-connection-string-for-iot-hub)
 
 ```
 HostName=something.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=xx
