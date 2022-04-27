@@ -182,7 +182,7 @@ The Router function application uses a collection of environment variables. If t
 
 The connection string of the IoT Hub's Event Hub, used as trigger on the *Router* Function to send the messages to the appropriate decoders.
 
-Please follow the link below for detailed instructions on how to find the connection string. Make sure to use the ```Event Hub-compatible endpoint```.
+Please follow the link below for detailed instructions on how to find the connection string. Make sure to use the ```Event Hub-compatible endpoint```:
 
 [Read from the built-in IoT Hub endpoint](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-read-builtin?msclkid=52470bd2c57411ec9277b8156a93aaba#read-from-the-built-in-endpoint)
 
@@ -208,7 +208,7 @@ Endpoint=sb://<NamespaceName>.servicebus.windows.net/;SharedAccessKeyName=<KeyNa
 
 The connection string for the IoT Hub used for device syncing and reading the device registry.
 
-Please follow this link for a detailed documentation how to find the connection string. 
+Please follow the link below for detailed instructions on how to find the connection string: 
 
 [Retrieve connection string iothubowner shared access policy ](https://docs.microsoft.com/en-us/azure/iot-dps/tutorial-set-up-cloud?msclkid=033e6a64c57511ec94a8940be2fa3c6e#retrieve-connection-string-for-iot-hub)
 
@@ -252,7 +252,7 @@ AQEAxxxxxHvset0OS9ZidYRgpSlYrd12NDvqxxxxxDVIGQAi+WFF
 
 The connection string for the IoT Hub used for sending downlinks to the LoRa devices.
 
-Please follow this link for a detailed documentation how to find the connection string. 
+Please follow the link below for detailed instructions on how to find the connection string: 
 
 [Retrieve connection string iothubowner shared access policy ](https://docs.microsoft.com/en-us/azure/iot-dps/tutorial-set-up-cloud?msclkid=033e6a64c57511ec94a8940be2fa3c6e#retrieve-connection-string-for-iot-hub)
 
