@@ -182,7 +182,7 @@ The Router function application uses a collection of environment variables. If t
 
 The connection string of the IoT Hub's Event Hub, used as trigger on the *Router* Function to send the messages to the appropriate decoders.
 
-Please follow this link for a detailed documentation how to find the connection string. Make sure to use the ```Event Hub-compatible endpoint```.
+Please follow the link below for detailed instructions on how to find the connection string. Make sure to use the ```Event Hub-compatible endpoint```.
 
 [Read from the built-in IoT Hub endpoint](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-read-builtin?msclkid=52470bd2c57411ec9277b8156a93aaba#read-from-the-built-in-endpoint)
 
@@ -196,7 +196,7 @@ SharedAccessKeyName=iothubowner
 
 Connection string defining the output of the router function to the enriched and decoded message Event Hub.
 
-Please follow this link for a detailed documentation how to find the connection string:
+Please follow the link below for detailed instructions on how to find the connection string:
 
 [Connection string for a specific event hub in a namespace](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-get-connection-string?msclkid=b508428dc57311ec83a2eac406231e55#connection-string-for-a-specific-event-hub-in-a-namespace)
 
