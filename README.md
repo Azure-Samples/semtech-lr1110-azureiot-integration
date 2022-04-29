@@ -186,8 +186,7 @@ Please follow the link below for detailed instructions on how to find the connec
 
 
 ```
-Endpoint=sb://something.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=xx;EntityPath=iothubname;
-SharedAccessKeyName=iothubowner
+Endpoint=sb://something.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=xx;EntityPath=iothubname
 ```
 
 #### EVENT_HUB_ROUTER_OUTPUT
