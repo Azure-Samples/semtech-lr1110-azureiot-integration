@@ -164,7 +164,7 @@ Depending on the LNS of your choice, navigate to one of the following folders an
 6. The function should now be automatically built and deployed to Azure
 7. Double check if the deployment was successful in the Console output of your Visual Studio Code:
 
-![Azure Function deployment output](images/azure-func-python.png)
+![Azure Function deployment output](images/azurefunction_python_deploymentsuccessful.png)
 
 ### Configuration of the Router Function: Environment variables
 
