@@ -274,7 +274,7 @@ To check if the setup was successful, please verify the following Azure componen
 3. Open up your ```Router``` Azure Function, navigate to the deployed function and open the ```Monitor``` dashboard. It should show that your function is successfully excecuted. The logs should also show that your router function is able to call your decoder function and gets the decoded message in response.
 4. Use the existing Azure SQL connection to check the entries in the table, after a while it should show rows with positioning data.
    
-![Azure Function deployment output](images/top1000sqlrows.png)
+![Azure Function deployment output](images/azuresql_query_selecttop100.png)
 
 ## Visualizing geolocation data using Power BI
 
