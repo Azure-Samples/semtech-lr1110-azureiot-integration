@@ -115,7 +115,7 @@ git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
 
 ![ASA Extension options](images/decoder-input_config.png)
 
-4. Use the Azure Stream Analytics extension to add the previously created Azure EventHub as input (i.e., "Provide settings manually")
+4. Use the Azure Stream Analytics extension to add the previously created Azure EventHub as input
 5. Open the ```sqldb.json``` file in the Outputs folder
 6. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure SQL DB as output
 
