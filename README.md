@@ -128,7 +128,7 @@ git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
 11. Follow the wizard to deploy your Job to the previously deployed ASA instance on Azure
 12.  Once the deployment was successfull the Cloud Job View of the Azure Stream Analytics Tools extension should open and you should be able to start the job.
 
-![ASA Cloud View](images/loraedge-asa-verify.png)
+![ASA Cloud View](images/asa-job-completed.png)
 
 ### Router Function deployment
 
