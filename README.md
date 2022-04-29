@@ -220,6 +220,9 @@ The Router function only supports a single decoder for moment. This configuratio
 ```
 https://{yourfunctionname}.azurewebsites.net/api/LoRaEdgeDecoderHelium
 ```
+
+Please, make sure to save all your settings configuration changes before continuing to the next step.
+
 ### Configuration of the Decoder Function: Environment variables
 
 After the deployment of the function code succeeded, we need to take care of the configuration.
@@ -257,6 +260,8 @@ Please follow the link below for detailed instructions on how to find the connec
 ```
 HostName=something.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=xx
 ```
+
+Please, make sure to save all your settings configuration changes before continuing to the next step.
 
 ### Validate your deployment
 
