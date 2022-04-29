@@ -168,7 +168,7 @@ Depending on the LNS of your choice, navigate to one of the following folders an
 
 ### Configuration of the Router Function: Environment variables
 
-After the deployment of the function code succeeded, we need to take care of the configuration.
+After completing the deployment of the function code, we now need to take care of the configuration.
 
 To set the environment variables of your Azure Function navigate to the ```Settings``` sections of your Azure Function and open the ```Configuration``` page.
 
