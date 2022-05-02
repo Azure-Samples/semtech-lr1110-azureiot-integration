@@ -198,7 +198,7 @@ Please follow the link below for detailed instructions on how to find the connec
 [Connection string for a specific event hub in a namespace](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-get-connection-string?msclkid=b508428dc57311ec83a2eac406231e55#connection-string-for-a-specific-event-hub-in-a-namespace)
 
 ```
-Endpoint=sb://<NamespaceName>.servicebus.windows.net/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>;EntityPath=<EventHubName>
+Endpoint=sb://<NamespaceName>.servicebus.windows.net/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>
 ```
 
 #### IOT_HUB_OWNER_CONNECTION_STRING
