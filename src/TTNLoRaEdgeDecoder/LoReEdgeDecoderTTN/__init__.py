@@ -422,6 +422,7 @@ def proc_dnlink(mgs_result, dev_data):
 # This is the TTN3 version of the function.
 def lns_downlink(mgs_result, dev_data):
     # Get device port, payload, and device id
+    global return_json
     port = get_mgs_dnlink_port(mgs_result)
     payload = get_mgs_dnlink_payload(mgs_result)
     device_id = dev_data['lns_plat_data']['device_id']
@@ -438,10 +439,19 @@ def lns_downlink(mgs_result, dev_data):
         }
     }
 
-    iothub_registry_manager = IoTHubRegistryManager(IOTHUB_CONNECTION_STRING)
-    twin = iothub_registry_manager.get_twin(device_id)
-    twin_patch = Twin(properties= TwinProperties(desired=decoded_payload))
-    twin = iothub_registry_manager.update_twin(device_id, twin_patch, twin.etag)
+        # Send C2D message
+    try:
+        # Create IoTHubRegistryManager
+        iothub_registry_manager = IoTHubRegistryManager(IOTHUB_CONNECTION_STRING)
+        twin = iothub_registry_manager.get_twin(device_id)
+        twin_patch = Twin(properties= TwinProperties(desired=decoded_payload))
+        twin = iothub_registry_manager.update_twin(device_id, twin_patch, twin.etag)
 
-    logging.info("Enqueueing downlink")
-    logging.info(f"Enqueueing downlink: {decoded_payload}")
+        logging.info("Enqueueing downlink")
+        logging.info(f"Enqueueing downlink: {decoded_payload}")
+
+    except Exception as ex:
+        logging.info( "Unexpected error {0}" % ex )
+        return_json = {'epochTime':time.time(),'level':"error",'logMessage':ex,'msgType':'log'}
+
+
