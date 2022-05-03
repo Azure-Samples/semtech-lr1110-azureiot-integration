@@ -112,22 +112,22 @@ git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
 
 ![Set event hub input](images/loraedge-asa-verify.png)
 
-3. Open the ```decoder-input.json``` file in the Inputs folder
+4. Open the ```decoder-input.json``` file in the Inputs folder
 
 ![ASA Extension options](images/decoder-input_config.png)
 
-4. Use the Azure Stream Analytics extension to add the previously created Azure EventHub as input
-5. Open the ```sqldb.json``` file in the Outputs folder
-6. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure SQL DB as output
+5. Use the Azure Stream Analytics extension to add the previously created Azure EventHub as input
+6. Open the ```sqldb.json``` file in the Outputs folder
+7. Use the Azure Stream Analytics extension and the offered wizard to add the previously created Azure SQL DB as output
 
 ![Set event hub input](images/sqloutput.png)
 
-7. Make sure to use the same User and Password as defined in the deployment
-8. Use the wizard to set the password in the file to store it in the secure configuration manager
-9. The SQL output table has the name ```signal_position```
-10. Open the file ```loraedge-ASA.asaql``` and use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```ASA: Submit to Azure```
-11. Follow the wizard to deploy your Job to the previously deployed ASA instance on Azure
-12.  Once the deployment was successfull the Cloud Job View of the Azure Stream Analytics Tools extension should open and you should be able to start the job.
+8. Make sure to use the same User and Password as defined in the deployment
+9. Use the wizard to set the password in the file to store it in the secure configuration manager
+10. The SQL output table has the name ```signal_position```
+11. Open the file ```loraedge-ASA.asaql``` and use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```ASA: Submit to Azure```
+12. Follow the wizard to deploy your Job to the previously deployed ASA instance on Azure
+13.  Once the deployment was successfull the Cloud Job View of the Azure Stream Analytics Tools extension should open and you should be able to start the job.
 
 ![ASA Cloud View](images/asa-job-completed.png)
 
