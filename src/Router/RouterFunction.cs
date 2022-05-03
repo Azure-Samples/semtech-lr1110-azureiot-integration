@@ -36,7 +36,7 @@ using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.EventHubs;
 
-namespace LR1110.Route
+namespace LR1110.Router
 {
     public static class RouteFunction
     {
