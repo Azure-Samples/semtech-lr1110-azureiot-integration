@@ -453,5 +453,9 @@ def lns_downlink(mgs_result, dev_data):
     except Exception as ex:
         logging.info( "Unexpected error {0}" % ex )
         return_json = {'epochTime':time.time(),'level':"error",'logMessage':ex,'msgType':'log'}
+        return False
 
+    # Success
+    return True
+# lns_downlink end
 
