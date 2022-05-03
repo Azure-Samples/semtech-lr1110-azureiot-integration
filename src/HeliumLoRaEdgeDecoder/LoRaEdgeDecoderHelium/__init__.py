@@ -357,7 +357,6 @@ def proc_strm_rec(deveui, offset, data):
 
 # Process downlink. This function is application dependent.
 # This is the LR1110 EVK/Tracker version of the function.
-# TODO. Correct this.
 def proc_dnlink(deveui, port, payload):
     # If port is 0 change to 150
     port = 150 if 0 == port else port
