@@ -90,7 +90,7 @@ namespace LR1110.Router
             }
         }
 
-        [FunctionName("RouteFunction")]
+        [FunctionName("RouterFunction")]
         public async static Task Run([IoTHubTrigger("messages/events", Connection = "EVENT_HUB_ROUTER_INPUT")] EventData[] myEventHubMessageInput,
             [EventHub("outputEventHubMessage", Connection = "EVENT_HUB_ROUTER_OUTPUT")] IAsyncCollector<String> output,
               ILogger log)
