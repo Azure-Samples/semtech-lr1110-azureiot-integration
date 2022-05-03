@@ -107,7 +107,8 @@ git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
 ### Azure Stream Analytics deployment
 
 1. In your file explorer navigate to the ```DataPipelineASA``` folder and open it with Visual Studio Code
-2. The Azure Stream Analytics Visual Code extension should recognize the project, you can verify this if the following options are shown in the ```loraedge-ASA.asaql``` file:
+2. Please, make sure you login to your Azure account
+3. The Azure Stream Analytics Visual Code extension should recognize the project, you can verify this if the following options are shown in the ```loraedge-ASA.asaql``` file:
 
 ![Set event hub input](images/loraedge-asa-verify.png)
 
