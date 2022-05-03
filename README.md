@@ -127,7 +127,7 @@ git clone https://github.com/Azure-Samples/semtech-lr1110-azureiot-integration
 10. The SQL output table has the name ```signal_position```
 11. Open the file ```loraedge-ASA.asaql``` and use the Visual Studio Code Command Palette (Ctrl-Shift-P) to run the following command: ```ASA: Submit to Azure```
 12. Follow the wizard to deploy your Job to the previously deployed ASA instance on Azure
-13.  Once the deployment was successfull the Cloud Job View of the Azure Stream Analytics Tools extension should open and you should be able to start the job.
+13.  Once the deployment was successfull the Cloud Job View of the Azure Stream Analytics Tools extension should open and you should be able to start the job (and it does take some time until it is up and running and you can see it on your screen)
 
 ![ASA Cloud View](images/asa-job-completed.png)
 
