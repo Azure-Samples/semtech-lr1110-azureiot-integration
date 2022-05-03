@@ -51,9 +51,14 @@ Please make sure to have the pre-requisites ready before starting the setup.
 * [Visual Studio Code Stream Analytics Tools Extension](https://marketplace.visualstudio.com/items?itemName=ms-bigdatatools.vscode-asa)
 * [Visual Studio Code Python Extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 * [Visual Studio Code C# Extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+* [Azure Tools Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack)
 * [Azure Functions Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash)
 * [\.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.201-windows-x64-installer)
+* [\.NET Core 3.1](https://dotnet.microsoft.com/en-us/download/dotnet/3.1)
 * [Python Version 3.9 or higher](https://www.python.org/downloads/) 
+
+Please make sure to log into your Azure Account with Visual Studio Code. A tutorial can be found in this article:
+[Configure Visual Studio Code for Azure development](https://docs.microsoft.com/en-us/dotnet/azure/configure-vs-code#:~:text=%20Configure%20Visual%20Studio%20Code%20for%20Azure%20development,you%20will%20want%20to%20install%20the...%20More%20)
 
 ### Deployment of the Azure services
 
