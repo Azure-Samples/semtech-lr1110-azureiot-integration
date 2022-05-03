@@ -38,7 +38,7 @@ using Microsoft.Azure.EventHubs;
 
 namespace LR1110.Router
 {
-    public static class RouteFunction
+    public static class RouterFunction
     {
         /// <summary>
         /// random generator
