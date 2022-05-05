@@ -64,7 +64,7 @@ Please make sure to log into your Azure Account with Visual Studio Code. A tutor
 
 The following button deploys the core infrastructure into your chosen subscription.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://ms.portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyaens%2Farm-templates%2Fmaster%2Farm-test%2FazuredeployBasic.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fyaens%2Farm-templates%2Fmaster%2Farm-test%2FazuredeployBasic.json)
 
 For the custom deployment, the following parameters need to be defined:
 - Region: Select your designated Azure Region, make sure to pick a region which supports the necessary components
